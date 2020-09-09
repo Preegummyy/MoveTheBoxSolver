@@ -4,13 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MoveTheBoxSolver.MainPage">
+             x:Class="MoveTheBoxSolver.Views.MainPage">
 
     <StackLayout>
         <!-- Place new controls here -->
         <Label Text="Welcome to Xamarin.Forms!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
+        <Button x:Name="positionSolveBtn" Text="Solve By Position" Clicked="positionSolveBtn_Clicked"/>
+        <Button x:Name="imageSolveBtn" Text="Solve By Image" Clicked="imageSolveBtn_Clicked"/>
     </StackLayout>
 
 </ContentPage>
