@@ -35,13 +35,28 @@ namespace MoveTheBoxSolver.Solver.Models
         #region Constuctor
         public PuzzleTable(int weight, int height)
         {
-            this.Boxes = new Box[weight + 1, height + 1];
             this.PuzzleWeight = weight;
             this.PuzzleHeight = height;
+            this.Boxes = new Box[weight + 1, height + 1];
+
+            for (int i = 0; i <= PuzzleWeight; i++)
+            {
+                for (int j = 0; j <= PuzzleHeight; j++)
+                {
+                    this.Boxes[i, j] = new Box() { Type = BoxType.Empty };
+                }
+            }
         }
         #endregion
 
         #region Public Method
+        public void CreatePuzzle(Dictionary<BoxIndex, BoxType> boxTypes)
+        {
+            foreach (var type in boxTypes)
+            {
+                this.Boxes[type.Key.Index_X, type.Key.Index_Y].Type = type.Value;
+            }
+        }
         public void SetPuzzle(PuzzleTable table)
         {
             for (int x = 0; x < PuzzleWeight; x++)
@@ -52,7 +67,6 @@ namespace MoveTheBoxSolver.Solver.Models
                 }
             }
         }
-
         public void Move(int index_x, int index_y, MoveMode mode)
         {
             switch (mode)

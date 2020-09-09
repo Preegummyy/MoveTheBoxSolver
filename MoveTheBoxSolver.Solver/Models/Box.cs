@@ -12,49 +12,9 @@ namespace MoveTheBoxSolver.Solver.Models
 
         public Box Clone()
         {
-            ////Serialize////
-            byte[] arrByte = SerializeArrayByte(this);
-            ///Deserialize///
-            return (Box)DeserializeArrayByte(arrByte);
+            return new Box() { Type = this.Type };
         }
 
-        public static byte[] SerializeArrayByte(object obj)
-        {
-            MemoryStream memoryStream = (MemoryStream)null;
-            try
-            {
-                memoryStream = new MemoryStream();
-                new BinaryFormatter().Serialize((Stream)memoryStream, obj);
-                return memoryStream.ToArray();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                memoryStream.Close();
-            }
-        }
-
-        public static object DeserializeArrayByte(byte[] serializedObject)
-        {
-            MemoryStream memoryStream = (MemoryStream)null;
-            try
-            {
-                memoryStream = new MemoryStream(serializedObject);
-                memoryStream.Position = 0L;
-                return new BinaryFormatter().Deserialize((Stream)memoryStream);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                memoryStream.Close();
-            }
-        }        
     }
 
     public enum BoxType
