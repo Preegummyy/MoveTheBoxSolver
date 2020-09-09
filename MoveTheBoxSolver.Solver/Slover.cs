@@ -6,11 +6,14 @@ namespace MoveTheBoxSolver.Solver
 {
     public class Slover
     {
+        #region Constuctor
         public Slover()
         {
 
         }
+        #endregion
 
+        #region Public Method
         public MoveArrow[] Solve(PuzzleTable puzzle, int moveLimit)
         {
             PuzzleTable[] TablesStack = new PuzzleTable[moveLimit];
@@ -74,7 +77,9 @@ namespace MoveTheBoxSolver.Solver
             }
             return null;
         }
+        #endregion
 
+        #region Private Method
         private PuzzleTable Move(int round, MoveArrow moveArrow, PuzzleTable puzzle, PuzzleTable[] tablesStack)
         {
             var TempTable = new PuzzleTable(puzzle.PuzzleWeight, puzzle.PuzzleHeight);
@@ -109,5 +114,8 @@ namespace MoveTheBoxSolver.Solver
 
             return Movelist;
         }
+        #endregion
+
+
     }
 }
