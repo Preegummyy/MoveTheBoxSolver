@@ -10,7 +10,7 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 >
-            <Label Text="Choose Box Color"/>
+            <Label Text="Choose Box Color" FontSize="Header"/>
             <StackLayout
                 x:Name="popuplayout"
                 BackgroundColor="White"

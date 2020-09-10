@@ -103,7 +103,8 @@ namespace MoveTheBoxSolver.Views
                 {
                     PuzzleTable puzzle = new PuzzleTable(7, 9);
                     puzzle.CreatePuzzle(BoxsToSolve);
-                    var Solution = new Solver.Solver().Solve(puzzle, Limit);
+                    Solver.Solver solver = new Solver.Solver();
+                    var Solution = solver.Solve(puzzle, Limit);
                     var SolutionText = "";
                     if (Solution == null)
                     {
@@ -113,7 +114,7 @@ namespace MoveTheBoxSolver.Views
                     {
                         foreach (var item in Solution)
                         {
-                            SolutionText += $"form solution : {item.Move.ToString()},type:{item.MoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
+                            SolutionText += $"{item.Move.ToString()},from type:{item.FromMoveBoxType.ToString()},to type:{item.ToMoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
                         }
                         DisplayAlert("Slover", SolutionText, "OK");
                     }

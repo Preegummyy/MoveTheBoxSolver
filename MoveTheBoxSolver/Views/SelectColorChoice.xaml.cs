@@ -16,6 +16,7 @@ namespace MoveTheBoxSolver.Views
     {
         public Color Color { get; set; }
         public BoxVM Box { get; set; }
+        public string Type { get { return Box.Type.ToString(); } }
         public SelectColorChoice(BoxType boxType)
         {
             InitializeComponent();

@@ -19,7 +19,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Text="Add Puzzle"
+            <Label Text="Create Puzzle" FontSize="Header"
                 HorizontalOptions="CenterAndExpand" Grid.Row="0" />
             <Grid x:Name="MainTableGrid" ColumnSpacing="5" RowSpacing="5" 
                   BackgroundColor="LightGray" 

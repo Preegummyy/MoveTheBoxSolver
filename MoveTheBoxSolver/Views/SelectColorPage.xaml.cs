@@ -48,6 +48,7 @@ namespace MoveTheBoxSolver.Views
                         ChoiceTapped(s, e);
                     };
                     Choice.GestureRecognizers.Add(boxTapGestureRecognizer);
+                    Choice.VerticalOptions = LayoutOptions.End;
                     popuplayout.Children.Add(Choice);
                 }
             }

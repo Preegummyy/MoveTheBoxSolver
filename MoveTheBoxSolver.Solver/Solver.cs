@@ -14,98 +14,77 @@ namespace MoveTheBoxSolver.Solver
         #endregion
 
         #region Public Method
-        public MoveArrow[] Solve(PuzzleTable puzzle, int moveLimit)
+        public List<HumanMoveArrow> Solve(PuzzleTable puzzle, int moveLimit)
         {
-            PuzzleTable[] TablesStack = new PuzzleTable[moveLimit];
-            MoveArrow[] Solution = new MoveArrow[moveLimit];
-            int[] IndexOfLastmove = new int[moveLimit];
-            List<MoveArrow> MoveList = GetMoveList(puzzle);
-            int MovelistCount = MoveList.Count;
-
-            for (int i = 0; i < IndexOfLastmove.Length; i++)
+            var solution = this.solve(puzzle, moveLimit);
+            if (solution != null)
             {
-                IndexOfLastmove[i] = 0;
-            }
-
-            for (int i = 0; i < TablesStack.Length; i++)
-            {
-                TablesStack[i] = new PuzzleTable(puzzle.PuzzleWeight, puzzle.PuzzleHeight);
-            }
-
-            puzzle.Fall();
-
-            for (int MoveRound = 0; MoveRound < moveLimit; MoveRound++)
-            {
-                var MoveDirectionIndex = IndexOfLastmove[MoveRound];
-                var MoveDirection = MoveList[MoveDirectionIndex];
-
-                //เช็คก่อน Move ครั้งต่อไป
-                if (TablesStack[MoveRound].IsSuccess)
+                var newSolution = new List<HumanMoveArrow>();
+                foreach (var item in solution)
                 {
-                    for (int i = 0; i < Solution.Length; i++)
+                    //Empty Move
+                    if (item.FromMoveBoxType == BoxType.Empty && item.ToMoveBoxType == BoxType.Empty)
                     {
-                        Solution[i] = MoveList[IndexOfLastmove[i] - 1];
-                        if (i == 0)
-                        {
-                            Solution[i].MoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
-                        }
-                        else
-                        {
-                            Solution[i].MoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
-                        }
+                        continue;
                     }
-                    return Solution;
-                }
 
-                TablesStack[MoveRound] = Move(MoveRound, MoveDirection, puzzle, TablesStack);
-                IndexOfLastmove[MoveRound]++;
-                if (IndexOfLastmove[MoveRound] >= MovelistCount - 1)
-                {
-                    //รอบ แรก
-                    if (MoveRound <= 0)
+                    //FromMoveBoxType Empty
+                    if (item.FromMoveBoxType == BoxType.Empty)
                     {
-                        return null;
-                    }
-                    IndexOfLastmove[MoveRound] = 0;
-                    TablesStack[MoveRound].SetPuzzle(TablesStack[MoveRound - 1]);
-                    MoveRound = MoveRound - 2;
-                }
-
-                //รอบสุดท้าย
-                if (MoveRound >= moveLimit - 1)
-                {
-                    if (TablesStack[MoveRound].IsSuccess)
-                    {
-                        for (int i = 0; i < Solution.Length; i++)
+                        //transform to human
+                        HumanMoveArrow humanMoveArrow = new HumanMoveArrow()
                         {
-                            Solution[i] = MoveList[IndexOfLastmove[i] - 1];
-                            if (i == 0)
-                            {
-                                Solution[i].MoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
-                            }
-                            else
-                            {
-                                Solution[i].MoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
-                            }
+                            StartIndex = item.StartIndex,
+                            FromMoveBoxType = item.ToMoveBoxType,
+                            ToMoveBoxType = item.FromMoveBoxType
+                        };
+
+                        switch (item.Move)
+                        {
+                            case MoveMode.MoveRight:
+                                humanMoveArrow.Move = HumanMoveMode.MoveLeft;
+                                humanMoveArrow.StartIndex.Index_X = item.StartIndex.Index_X + 1;
+                                break;
+                            case MoveMode.MoveUp:
+                                humanMoveArrow.Move = HumanMoveMode.MoveDown;
+                                humanMoveArrow.StartIndex.Index_Y = item.StartIndex.Index_Y + 1;
+                                break;
+                            default:
+                                break;
                         }
-                        return Solution;
+                        newSolution.Add(humanMoveArrow);
                     }
                     else
                     {
-                        if (MoveRound <= 0)
+                        HumanMoveArrow humanMoveArrow = new HumanMoveArrow()
                         {
-                            TablesStack[MoveRound].SetPuzzle(puzzle);
-                        }
-                        else
+                            StartIndex = item.StartIndex,
+                            FromMoveBoxType = item.FromMoveBoxType,
+                            ToMoveBoxType = item.ToMoveBoxType
+                        };
+
+                        switch (item.Move)
                         {
-                            TablesStack[MoveRound].SetPuzzle(TablesStack[MoveRound - 1]);
+                            case MoveMode.MoveRight:
+                                humanMoveArrow.Move = HumanMoveMode.MoveRight;
+                                break;
+                            case MoveMode.MoveUp:
+                                humanMoveArrow.Move = HumanMoveMode.MoveUp;
+                                break;
+                            default:
+                                break;
                         }
-                        MoveRound--;
+                        newSolution.Add(humanMoveArrow);
                     }
                 }
+                return newSolution;
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
+
         #endregion
 
         #region Private Method
@@ -142,6 +121,102 @@ namespace MoveTheBoxSolver.Solver
             }
 
             return Movelist;
+        }
+
+        public MoveArrow[] solve(PuzzleTable puzzle, int moveLimit)
+        {
+            puzzle.Fall();
+
+            PuzzleTable[] TablesStack = new PuzzleTable[moveLimit];
+            MoveArrow[] Solution = new MoveArrow[moveLimit];
+            int[] IndexOfLastmove = new int[moveLimit];
+            List<MoveArrow> MoveList = GetMoveList(puzzle);
+            int MovelistCount = MoveList.Count;
+
+            for (int i = 0; i < IndexOfLastmove.Length; i++)
+            {
+                IndexOfLastmove[i] = 0;
+            }
+
+            for (int i = 0; i < TablesStack.Length; i++)
+            {
+                TablesStack[i] = new PuzzleTable(puzzle.PuzzleWeight, puzzle.PuzzleHeight);
+            }
+
+            for (int MoveRound = 0; MoveRound < moveLimit; MoveRound++)
+            {
+                var MoveDirectionIndex = IndexOfLastmove[MoveRound];
+                var MoveDirection = MoveList[MoveDirectionIndex];
+                TablesStack[MoveRound] = Move(MoveRound, MoveDirection, puzzle, TablesStack);
+                IndexOfLastmove[MoveRound]++;
+                if (IndexOfLastmove[MoveRound] >= MovelistCount - 1)
+                {
+                    //รอบ แรก
+                    if (MoveRound <= 0)
+                    {
+                        return null;
+                    }
+                    IndexOfLastmove[MoveRound] = 0;
+                    TablesStack[MoveRound].SetPuzzle(TablesStack[MoveRound - 1]);
+                    MoveRound = MoveRound - 2;
+                }
+
+                //รอบสุดท้าย
+                if (MoveRound >= moveLimit - 1)
+                {
+                    if (TablesStack[MoveRound].IsSuccess)
+                    {
+                        for (int i = 0; i < Solution.Length; i++)
+                        {
+                            Solution[i] = MoveList[IndexOfLastmove[i] - 1];
+                            if (i == 0)
+                            {
+                                Solution[i].FromMoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                                switch (Solution[i].Move)
+                                {
+                                    case MoveMode.MoveRight:
+                                        Solution[i].ToMoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X + 1, Solution[i].StartIndex.Index_Y);
+                                        break;
+                                    case MoveMode.MoveUp:
+                                        Solution[i].ToMoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y + 1);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Solution[i].FromMoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                                switch (Solution[i].Move)
+                                {
+                                    case MoveMode.MoveRight:
+                                        Solution[i].ToMoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X + 1, Solution[i].StartIndex.Index_Y);
+                                        break;
+                                    case MoveMode.MoveUp:
+                                        Solution[i].ToMoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y + 1);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                        return Solution;
+                    }
+                    else
+                    {
+                        if (MoveRound <= 0)
+                        {
+                            TablesStack[MoveRound].SetPuzzle(puzzle);
+                        }
+                        else
+                        {
+                            TablesStack[MoveRound].SetPuzzle(TablesStack[MoveRound - 1]);
+                        }
+                        MoveRound--;
+                    }
+                }
+            }
+            return null;
         }
         #endregion
 

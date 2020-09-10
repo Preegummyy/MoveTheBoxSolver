@@ -8,12 +8,16 @@
   <ContentView.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <BoxView Color="{Binding Color}"></BoxView>
+            <BoxView Color="{Binding Color}" Grid.Column="0"></BoxView>
+            <Grid Grid.Column="1">
+                <Label Text="{Binding Type}"/>
+            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>
