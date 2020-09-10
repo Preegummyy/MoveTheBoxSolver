@@ -1,4 +1,5 @@
-﻿using MoveTheBoxSolver.Solver.Models;
+﻿using MoveTheBoxSolver.Solver;
+using MoveTheBoxSolver.Solver.Models;
 using MoveTheBoxSolver.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
+using static MoveTheBoxSolver.Solver.Models.PuzzleTable;
 
 namespace MoveTheBoxSolver.Views
 {
@@ -18,11 +20,13 @@ namespace MoveTheBoxSolver.Views
     {
         public PuzzleTableViewModels PuzzleTableVM { get; set; }
         public bool IsAppearingFirstTime = true;
-
+        public SelectColorPage SelectPage;
+        public Dictionary<TupleKey, BoxType> BoxsToSolve = new Dictionary<TupleKey, BoxType>();
         public SolveByPositionPage()
         {
             InitializeComponent();
             MainTableGrid.BindingContext = PuzzleTableVM;
+            SelectPage = new SelectColorPage(this);
         }
 
         protected override void OnAppearing()
@@ -70,9 +74,12 @@ namespace MoveTheBoxSolver.Views
                     {
                         var Column = Grid.GetColumn(boxTapped);
                         var Row = Grid.GetRow(boxTapped);
-                        DisplayAlert("Box", $"type :{VM.Type},row :{Row},column :{Column}", "Cancel");
-                        //OpenPopup();
-                        VM.Type = BoxType.BlueSteel;
+                        SelectPage.boxTapped = VM;
+                        SelectPage.Column = Column;
+                        SelectPage.Row = Row;
+                        Navigation.PushModalAsync(SelectPage);
+                        //DisplayAlert("Box", $"type :{VM.Type},row :{Row},column :{Column}", "Cancel");
+                        //VM.Type = BoxType.BlueSteel;
                     }
                 }
                 else
@@ -86,38 +93,49 @@ namespace MoveTheBoxSolver.Views
             }
         }
 
-        //private async void OpenPopup()
-        //{
-        //    if (!this.popuplayout.IsVisible)
-        //    {
-        //        this.popuplayout.IsVisible = !this.popuplayout.IsVisible;
-        //        this.popuplayout.AnchorX = 1;
-        //        this.popuplayout.AnchorY = 1;
+        private void Solve_Clicked(object sender, EventArgs e)
+        {
+            string Text = Number_Of_Move.Text;
+            int Limit;
+            if (int.TryParse(Text, out Limit))
+            {
+                if (Limit > 0 && Limit <= 10)
+                {
+                    PuzzleTable puzzle = new PuzzleTable(7, 9);
+                    puzzle.CreatePuzzle(BoxsToSolve);
+                    var Solution = new Solver.Solver().Solve(puzzle, Limit);
+                    var SolutionText = "";
+                    if (Solution == null)
+                    {
+                        DisplayAlert("Slover", "No Solution", "OK");
+                    }
+                    else
+                    {
+                        foreach (var item in Solution)
+                        {
+                            SolutionText += $"form solution : {item.Move.ToString()},type:{item.MoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
+                        }
+                        DisplayAlert("Slover", SolutionText, "OK");
+                    }
+                    
+                   
+                }
+                else
+                {
+                    InvalidMoveText();
+                }
+            }
+            else
+            {
+                InvalidMoveText();
+            }
+        }
 
-        //        Animation scaleAnimation = new Animation(
-        //            f => this.popuplayout.Scale = f,
-        //            0.5,
-        //            1,
-        //            Easing.SinInOut);
-
-        //        Animation fadeAnimation = new Animation(
-        //            f => this.popuplayout.Opacity = f,
-        //            0.2,
-        //            1,
-        //            Easing.SinInOut);
-
-        //        scaleAnimation.Commit(this.popuplayout, "popupScaleAnimation", 250);
-        //        fadeAnimation.Commit(this.popuplayout, "popupFadeAnimation", 250);
-        //    }
-        //    else
-        //    {
-        //        await Task.WhenAny<bool>
-        //          (
-        //            this.popuplayout.FadeTo(0, 200, Easing.SinInOut)
-        //          );
-
-        //        this.popuplayout.IsVisible = !this.popuplayout.IsVisible;
-        //    }
-        //}
+        private void InvalidMoveText()
+        {
+            Number_Of_Move.Text = "";
+            Number_Of_Move.BackgroundColor = Color.Red;
+            DisplayAlert("Slover", "Invalid move limit.", "OK");
+        }
     }
 }

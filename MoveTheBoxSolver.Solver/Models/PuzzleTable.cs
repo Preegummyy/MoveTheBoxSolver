@@ -52,7 +52,7 @@ namespace MoveTheBoxSolver.Solver.Models
         #endregion
 
         #region Public Method
-        public void CreatePuzzle(Dictionary<BoxIndex, BoxType> boxTypes)
+        public void CreatePuzzle(Dictionary<TupleKey, BoxType> boxTypes)
         {
             foreach (var type in boxTypes)
             {
@@ -251,5 +251,17 @@ namespace MoveTheBoxSolver.Solver.Models
             }
         }
         #endregion
+
+        public struct TupleKey
+        {
+            public readonly int Index_X;
+            public readonly int Index_Y;
+
+            public TupleKey(int index_X, int index_Y)
+            {
+                Index_X = index_X;
+                Index_Y = index_Y;
+            }
+        }
     }
 }
