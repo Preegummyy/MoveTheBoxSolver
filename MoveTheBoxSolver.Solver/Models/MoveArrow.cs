@@ -30,10 +30,10 @@ namespace MoveTheBoxSolver.Solver.Models
 
     public enum HumanMoveMode
     {
-        MoveRight = 1,
-        MoveLeft = 2,
-        MoveUp = 3,
-        MoveDown = 4
+        Right = 1,
+        Left = 2,
+        Up = 3,
+        Down = 4
     }
     
     #endregion

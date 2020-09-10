@@ -42,11 +42,11 @@ namespace MoveTheBoxSolver.Solver
                         switch (item.Move)
                         {
                             case MoveMode.MoveRight:
-                                humanMoveArrow.Move = HumanMoveMode.MoveLeft;
+                                humanMoveArrow.Move = HumanMoveMode.Left;
                                 humanMoveArrow.StartIndex.Index_X = item.StartIndex.Index_X + 1;
                                 break;
                             case MoveMode.MoveUp:
-                                humanMoveArrow.Move = HumanMoveMode.MoveDown;
+                                humanMoveArrow.Move = HumanMoveMode.Down;
                                 humanMoveArrow.StartIndex.Index_Y = item.StartIndex.Index_Y + 1;
                                 break;
                             default:
@@ -66,10 +66,10 @@ namespace MoveTheBoxSolver.Solver
                         switch (item.Move)
                         {
                             case MoveMode.MoveRight:
-                                humanMoveArrow.Move = HumanMoveMode.MoveRight;
+                                humanMoveArrow.Move = HumanMoveMode.Right;
                                 break;
                             case MoveMode.MoveUp:
-                                humanMoveArrow.Move = HumanMoveMode.MoveUp;
+                                humanMoveArrow.Move = HumanMoveMode.Up;
                                 break;
                             default:
                                 break;

@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
             <BoxView Color="{Binding Color}" Grid.Column="0"></BoxView>
             <Grid Grid.Column="1">
-                <Label Text="{Binding Type}"/>
+                <Label Text="{Binding Type}" FontSize="Subtitle"/>
             </Grid>
         </Grid>
     </ContentView.Content>

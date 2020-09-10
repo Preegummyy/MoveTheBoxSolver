@@ -112,14 +112,18 @@ namespace MoveTheBoxSolver.Views
                     }
                     else
                     {
+                        int step = 1;
                         foreach (var item in Solution)
                         {
-                            SolutionText += $"{item.Move.ToString()},from type:{item.FromMoveBoxType.ToString()},to type:{item.ToMoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
+                            //SolutionText += $"{item.Move.ToString()},:{item.FromMoveBoxType.ToString()},to type:{item.ToMoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
+                            SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} at floor:{item.StartIndex.Index_Y + 1} ,index:{item.StartIndex.Index_X + 1} {item.Move.ToString()}{Environment.NewLine}";
+                            step++;
                         }
-                        DisplayAlert("Slover", SolutionText, "OK");
+                        Navigation.PushModalAsync(new SolutionPage(SolutionText));
+                        //DisplayAlert("Slover", SolutionText, "OK");
                     }
-                    
-                   
+
+
                 }
                 else
                 {
