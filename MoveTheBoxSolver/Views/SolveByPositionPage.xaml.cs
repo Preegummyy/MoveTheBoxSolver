@@ -22,6 +22,8 @@ namespace MoveTheBoxSolver.Views
         public bool IsAppearingFirstTime = true;
         public SelectColorPage SelectPage;
         public Dictionary<TupleKey, BoxType> BoxsToSolve = new Dictionary<TupleKey, BoxType>();
+        public bool IsChange = true;
+        public List<HumanMoveArrow> Solution = new List<HumanMoveArrow>();
         public SolveByPositionPage()
         {
             InitializeComponent();
@@ -39,6 +41,30 @@ namespace MoveTheBoxSolver.Views
             if (IsAppearingFirstTime)
             {
                 IsAppearingFirstTime = false;
+
+                for (int i = 1; i <= 9; i++)
+                {
+                    IndexDefineGrid.Children.Add(new Label()
+                    {
+                        Text = i.ToString()
+                        ,
+                        HorizontalOptions = LayoutOptions.Center
+                        ,
+                        VerticalOptions = LayoutOptions.Center
+                    }, 0, 9 - i + 1);
+                }
+
+                for (int i = 1; i <= 7; i++)
+                {
+                    IndexDefineGrid.Children.Add(new Label()
+                    {
+                        Text = i.ToString()
+                        ,
+                        HorizontalOptions = LayoutOptions.Center
+                        ,
+                        VerticalOptions = LayoutOptions.Center
+                    }, i, 0);
+                }
                 for (int i = 0; i < 7; i++)
                 {
                     for (int j = 0; j < 9; j++)
@@ -104,7 +130,11 @@ namespace MoveTheBoxSolver.Views
                     PuzzleTable puzzle = new PuzzleTable(7, 9);
                     puzzle.CreatePuzzle(BoxsToSolve);
                     Solver.Solver solver = new Solver.Solver();
-                    var Solution = solver.Solve(puzzle, Limit);
+                    if (IsChange)
+                    {
+                        Solution = solver.Solve(puzzle, Limit);
+                        IsChange = false;
+                    }
                     var SolutionText = "";
                     if (Solution == null)
                     {

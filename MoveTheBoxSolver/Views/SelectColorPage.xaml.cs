@@ -74,6 +74,7 @@ namespace MoveTheBoxSolver.Views
                         {
                             ParentPage.BoxsToSolve.Add(index, boxTapped.Type);
                         }
+                        ParentPage.IsChange = true;
                         Navigation.PopModalAsync();
                     }
                 }

@@ -16,8 +16,8 @@ namespace MoveTheBoxSolver.Views
         public SolutionPage(string solutionText)
         {
             InitializeComponent();
-            this.BindingContext = this;
             this.SolutionText = solutionText;
+            this.BindingContext = this;
         }
     }
 }
