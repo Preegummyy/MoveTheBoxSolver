@@ -172,5 +172,10 @@ namespace MoveTheBoxSolver.Views
             Number_Of_Move.BackgroundColor = Color.Red;
             DisplayAlert("Slover", "Invalid move limit.", "OK");
         }
+
+        private void Number_Of_Move_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            IsChange = true;
+        }
     }
 }

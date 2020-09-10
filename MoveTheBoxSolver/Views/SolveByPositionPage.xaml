@@ -78,7 +78,7 @@
             </Grid>
             <Entry x:Name="Number_Of_Move" Placeholder="Number of move" Keyboard="Numeric"
                    VerticalOptions="FillAndExpand"
-                   HorizontalOptions="FillAndExpand" Grid.Row="2"/>
+                   HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged"/>
             <Button Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
         </Grid>
 
