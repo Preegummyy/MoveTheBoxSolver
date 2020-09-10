@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace MoveTheBoxSolver.Solver
 {
-    public class Slover
+    public class Solver
     {
         #region Constuctor
-        public Slover()
+        public Solver()
         {
 
         }
