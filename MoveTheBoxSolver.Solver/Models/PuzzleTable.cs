@@ -12,7 +12,9 @@ namespace MoveTheBoxSolver.Solver.Models
 
         #region Public Properties
         public int PuzzleWeight { get; }
+
         public int PuzzleHeight { get; }
+
         public bool IsSuccess
         {
             get
@@ -57,6 +59,7 @@ namespace MoveTheBoxSolver.Solver.Models
                 this.Boxes[type.Key.Index_X, type.Key.Index_Y].Type = type.Value;
             }
         }
+
         public void SetPuzzle(PuzzleTable table)
         {
             for (int x = 0; x < PuzzleWeight; x++)
@@ -67,6 +70,7 @@ namespace MoveTheBoxSolver.Solver.Models
                 }
             }
         }
+
         public void Move(int index_x, int index_y, MoveMode mode)
         {
             switch (mode)
@@ -80,6 +84,23 @@ namespace MoveTheBoxSolver.Solver.Models
                 default:
                     break;
             }
+        }
+
+        public void Show()
+        {
+            for (int y = PuzzleHeight - 1; y >= 0; y--)
+            {
+                for (int x = 0; x < PuzzleWeight; x++)
+                {
+                    Console.Write(Boxes[x, y].Type.GetHashCode() + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public BoxType GetBoxsType(int index_x, int index_y)
+        {
+            return Boxes[index_x, index_y].Type;
         }
         #endregion
 
