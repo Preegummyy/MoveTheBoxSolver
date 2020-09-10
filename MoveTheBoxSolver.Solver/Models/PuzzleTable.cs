@@ -102,6 +102,9 @@ namespace MoveTheBoxSolver.Solver.Models
         {
             return Boxes[index_x, index_y].Type;
         }
+
+        public void Fall() { this.fall(); this.check(); }
+
         #endregion
 
         #region Private Method

@@ -32,10 +32,31 @@ namespace MoveTheBoxSolver.Solver
                 TablesStack[i] = new PuzzleTable(puzzle.PuzzleWeight, puzzle.PuzzleHeight);
             }
 
+            puzzle.Fall();
+
             for (int MoveRound = 0; MoveRound < moveLimit; MoveRound++)
             {
                 var MoveDirectionIndex = IndexOfLastmove[MoveRound];
                 var MoveDirection = MoveList[MoveDirectionIndex];
+
+                //เช็คก่อน Move ครั้งต่อไป
+                if (TablesStack[MoveRound].IsSuccess)
+                {
+                    for (int i = 0; i < Solution.Length; i++)
+                    {
+                        Solution[i] = MoveList[IndexOfLastmove[i] - 1];
+                        if (i == 0)
+                        {
+                            Solution[i].MoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                        }
+                        else
+                        {
+                            Solution[i].MoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                        }
+                    }
+                    return Solution;
+                }
+
                 TablesStack[MoveRound] = Move(MoveRound, MoveDirection, puzzle, TablesStack);
                 IndexOfLastmove[MoveRound]++;
                 if (IndexOfLastmove[MoveRound] >= MovelistCount - 1)
