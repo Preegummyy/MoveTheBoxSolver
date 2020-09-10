@@ -58,6 +58,14 @@ namespace MoveTheBoxSolver.Solver
                         for (int i = 0; i < Solution.Length; i++)
                         {
                             Solution[i] = MoveList[IndexOfLastmove[i] - 1];
+                            if (i == 0)
+                            {
+                                Solution[i].MoveBoxType = puzzle.GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                            }
+                            else
+                            {
+                                Solution[i].MoveBoxType = TablesStack[i - 1].GetBoxsType(Solution[i].StartIndex.Index_X, Solution[i].StartIndex.Index_Y);
+                            }
                         }
                         return Solution;
                     }

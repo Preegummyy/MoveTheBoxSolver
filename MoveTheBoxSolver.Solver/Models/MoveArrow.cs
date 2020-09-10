@@ -8,6 +8,7 @@ namespace MoveTheBoxSolver.Solver.Models
     {
         public MoveMode Move { get; set; }
         public BoxIndex StartIndex { get; set; }
+        public BoxType MoveBoxType { get; set; }
     }
 
     #region MoveMode
