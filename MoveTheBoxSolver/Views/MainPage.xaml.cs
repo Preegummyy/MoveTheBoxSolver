@@ -20,7 +20,7 @@ namespace MoveTheBoxSolver.Views
 
         private void positionSolveBtn_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new SolveByPositionPage());
         }
 
         private void imageSolveBtn_Clicked(object sender, EventArgs e)

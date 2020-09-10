@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MoveTheBoxSolver.Views.SolveByPositionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Add Puzzle"
+                HorizontalOptions="CenterAndExpand" />
+            <Grid x:Name="MainTableGrid" ColumnSpacing="5" RowSpacing="5" 
+                  BackgroundColor="LightGray" 
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+            </Grid>
+
+            <!--<Frame
+                x:Name="popuplayout"
+                HasShadow="True"
+                IsVisible="False"
+                Scale="0"
+                BackgroundColor="White"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="1,1,0.5,0.5">
+                <StackLayout>
+                    <Label Text="One"/>
+                    <Label Text="Two"/>
+                    <Label Text="Three"/>
+                    <Label Text="Four"/>
+                    <Label Text="Five"/>
+                    <Label Text="Six"/>
+                </StackLayout>
+            </Frame>-->
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>
