@@ -29,9 +29,9 @@ namespace MoveTheBoxSolver.Views
             foreach (var item in Solution)
             {
                 var Stack = new StackLayout() { Orientation = StackOrientation.Horizontal };
-                Stack.Children.Add(new Label() { Text = $"Step {step} : Move " });
+                Stack.Children.Add(new Label() { Text = $"Step {step} : Move ", VerticalOptions = LayoutOptions.End });
                 Stack.Children.Add(new BoxView() { Color = new BoxVM() { Type = item.FromMoveBoxType }.Color });
-                Stack.Children.Add(new Label() { Text = $" in {SolveByPositionPage.MappingColumnIndex(item.StartIndex.Index_X)}{item.StartIndex.Index_Y + 1} {item.Move.ToString()}" });
+                Stack.Children.Add(new Label() { Text = $" in {SolveByPositionPage.MappingColumnIndex(item.StartIndex.Index_X)}{item.StartIndex.Index_Y + 1} {item.Move.ToString()}", VerticalOptions = LayoutOptions.End });
                 MainStack.Children.Add(Stack);
                 step++;
             }

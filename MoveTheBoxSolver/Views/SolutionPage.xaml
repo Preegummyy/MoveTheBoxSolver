@@ -8,7 +8,7 @@
              Title = "Your Solution">
     <ContentPage.Content >
         <StackLayout x:Name="MainStack">
-            <Label Text="Choose Box Color" FontSize="Title"/>
+            <Label Text="Your Solution" FontSize="Header"/>
             <!--<Label Text="{Binding SolutionText}" FontSize="Large" />-->
         </StackLayout>
     </ContentPage.Content>
