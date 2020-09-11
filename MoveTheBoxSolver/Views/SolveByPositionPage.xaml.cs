@@ -18,7 +18,7 @@ namespace MoveTheBoxSolver.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SolveByPositionPage : ContentPage
     {
-        public bool isLoading;
+        private bool isLoading;
         public bool IsLoading
         {
             get { return isLoading; }
@@ -34,12 +34,30 @@ namespace MoveTheBoxSolver.Views
             get { return !IsLoading; }
         }
 
+        public bool IsHasSolution { get; set; }
+        
+        private bool isChange = false;
+        public bool IsChange
+        {
+            get { return isChange; }
+            set
+            {
+                isChange = value;
+                OnPropertyChanged("IsChange");
+                OnPropertyChanged("IsShowClear");
+            }
+        }
+
+        public bool IsShowClear
+        {
+            get { return IsChange; }
+        }
 
         public bool IsAppearingFirstTime = true;
         public SelectColorPage SelectPage;
         public Dictionary<TupleKey, BoxType> BoxsToSolve = new Dictionary<TupleKey, BoxType>();
-        public bool IsChange = true;
         public List<HumanMoveArrow> Solution = new List<HumanMoveArrow>();
+
         public SolveByPositionPage()
         {
             InitializeComponent();
@@ -65,7 +83,7 @@ namespace MoveTheBoxSolver.Views
                         HorizontalOptions = LayoutOptions.Center
                         ,
                         VerticalOptions = LayoutOptions.Center
-                    }, 0, 9 - i + 1);
+                    }, 0, 9 - i);
                 }
 
                 for (int i = 1; i <= 7; i++)
@@ -79,6 +97,7 @@ namespace MoveTheBoxSolver.Views
                         VerticalOptions = LayoutOptions.Center
                     }, i, 9);
                 }
+
                 for (int i = 0; i < 7; i++)
                 {
                     for (int j = 0; j < 9; j++)
@@ -135,6 +154,28 @@ namespace MoveTheBoxSolver.Views
             }
         }
 
+        private void Clear_All_Clicked(object sender, EventArgs eventArgs)
+        {
+            Number_Of_Move.Text = "";
+            
+            Solution = new List<HumanMoveArrow>();
+            BoxsToSolve = new Dictionary<TupleKey, BoxType>();
+            SelectPage = new SelectColorPage(this);
+            foreach (var item in MainTableGrid.Children)
+            {
+                BoxView boxView = item as BoxView;
+                if (boxView != null)
+                {
+                    BoxVM boxVM = boxView.BindingContext as BoxVM;
+                    if (boxVM != null)
+                    {
+                        boxVM.Type = BoxType.Empty;
+                    }
+                }
+            }
+            IsChange = false;
+        }
+
         private async void Solve_Clicked(object sender, EventArgs e)
         {
 
@@ -144,11 +185,35 @@ namespace MoveTheBoxSolver.Views
             {
                 if (Limit > 0 && Limit <= 10)
                 {
+                    if (BoxsToSolve.Count <= 0)
+                    {
+                        await DisplayAlert("Slover", "No Box in Puzzle", "OK");
+                        return;
+                    }
+
+                    bool AllEmpty = true;
+                    foreach (var item in BoxsToSolve)
+                    {
+                        if (item.Value != BoxType.Empty)
+                        {
+                            AllEmpty = false;
+                            break;
+                        }
+                    }
+
+                    if (AllEmpty)
+                    {
+                        await DisplayAlert("Slover", "No Box in Puzzle", "OK");
+                        return;
+                    }
+
                     Number_Of_Move.BackgroundColor = Color.Default;
                     PuzzleTable puzzle = new PuzzleTable(7, 9);
+
+
                     puzzle.CreatePuzzle(BoxsToSolve);
                     Solver.Solver solver = new Solver.Solver();
-                    if (IsChange)
+                    if (!IsHasSolution)
                     {
                         try
                         {
@@ -159,7 +224,7 @@ namespace MoveTheBoxSolver.Views
                         {
                             IsLoading = false;
                         }
-                        IsChange = false;
+                        IsHasSolution = true;
                     }
                     var SolutionText = "";
                     if (Solution == null)
@@ -202,6 +267,7 @@ namespace MoveTheBoxSolver.Views
         private void Number_Of_Move_TextChanged(object sender, TextChangedEventArgs e)
         {
             IsChange = true;
+            IsHasSolution = false;
         }
 
         private string MappingColumnIndex(int Index_X)

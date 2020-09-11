@@ -18,6 +18,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
             <!--<Label Text="Create Puzzle" FontSize="Title"
@@ -82,7 +83,8 @@
                    HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged" 
                    IsEnabled="{Binding IsButtonEnabled}"/>
             <Button IsEnabled="{Binding IsButtonEnabled}" Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
-            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}"/>
+            <Button IsEnabled="{Binding IsShowClear}" Clicked="Clear_All_Clicked" Grid.Row="4" Text="Clear"/>
+            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}" Scale="0.15"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
