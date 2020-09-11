@@ -24,7 +24,7 @@ namespace MoveTheBoxSolver.ViewModels
                     case Solver.Models.BoxType.RedWood:
                         return Color.Red;
                     case Solver.Models.BoxType.GreenWood:
-                        return Color.FromHex("#90ee90");
+                        return Color.FromHex("#558b2f");
                     case Solver.Models.BoxType.BrownLeather:
                         return Color.FromHex("#6a432d");
                     case Solver.Models.BoxType.BrownPaper:
