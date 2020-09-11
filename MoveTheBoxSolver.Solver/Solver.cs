@@ -1,6 +1,7 @@
 ﻿using MoveTheBoxSolver.Solver.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MoveTheBoxSolver.Solver
 {
@@ -14,6 +15,11 @@ namespace MoveTheBoxSolver.Solver
         #endregion
 
         #region Public Method
+        public async Task<List<HumanMoveArrow>> SolveAsync(PuzzleTable puzzle, int moveLimit)
+        {
+            return await Task.Run(() => { return Solve(puzzle, moveLimit); });
+        }
+
         public List<HumanMoveArrow> Solve(PuzzleTable puzzle, int moveLimit)
         {
             var solution = this.solve(puzzle, moveLimit);

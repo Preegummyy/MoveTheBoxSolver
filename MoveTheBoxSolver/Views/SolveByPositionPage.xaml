@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="MoveTheBoxSolver.Views.SolveByPositionPage">
     <ContentPage.Content>
+        
         <Grid 
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
@@ -18,7 +19,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
+            <ActivityIndicator x:Name="Loading" IsRunning="False" Grid.Row="0" Grid.RowSpan="4"/>
             <Label Text="Create Puzzle" FontSize="Title"
                 HorizontalOptions="CenterAndExpand" Grid.Row="0" />
             <Grid x:Name="IndexDefineGrid" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand"
@@ -81,7 +82,5 @@
                    HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged"/>
             <Button Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
         </Grid>
-
-
     </ContentPage.Content>
 </ContentPage>

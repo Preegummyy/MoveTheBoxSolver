@@ -6,13 +6,15 @@
              mc:Ignorable="d"
              x:Class="MoveTheBoxSolver.Views.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Move The Box Solver" FontSize="Header"
+    <ScrollView>
+        <StackLayout>
+
+            <!-- Place new controls here -->
+            <Label Text="Move The Box Solver" FontSize="Header"
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-        <Button x:Name="positionSolveBtn" Text="Solve By Position" Clicked="positionSolveBtn_Clicked"/>
-        <Button x:Name="imageSolveBtn" Text="Solve By Image" Clicked="imageSolveBtn_Clicked"/>
-    </StackLayout>
-
+            <Button x:Name="positionSolveBtn" Text="Solve By Position" Clicked="positionSolveBtn_Clicked"/>
+            <Button x:Name="imageSolveBtn" Text="Solve By Image" Clicked="imageSolveBtn_Clicked"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

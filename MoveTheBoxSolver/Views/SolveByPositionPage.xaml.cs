@@ -58,7 +58,7 @@ namespace MoveTheBoxSolver.Views
                 {
                     IndexDefineGrid.Children.Add(new Label()
                     {
-                        Text = i.ToString()
+                        Text = MappingColumnIndex(i - 1)
                         ,
                         HorizontalOptions = LayoutOptions.Center
                         ,
@@ -119,7 +119,7 @@ namespace MoveTheBoxSolver.Views
             }
         }
 
-        private void Solve_Clicked(object sender, EventArgs e)
+        private async void Solve_Clicked(object sender, EventArgs e)
         {
             string Text = Number_Of_Move.Text;
             int Limit;
@@ -127,33 +127,42 @@ namespace MoveTheBoxSolver.Views
             {
                 if (Limit > 0 && Limit <= 10)
                 {
+                    Number_Of_Move.BackgroundColor = Color.Default;
                     PuzzleTable puzzle = new PuzzleTable(7, 9);
                     puzzle.CreatePuzzle(BoxsToSolve);
                     Solver.Solver solver = new Solver.Solver();
                     if (IsChange)
                     {
-                        Solution = solver.Solve(puzzle, Limit);
+                        Loading.IsRunning = true;
+                        try
+                        {
+                            Solution = await solver.SolveAsync(puzzle, Limit);
+                        }
+                        finally
+                        {
+                            Loading.IsRunning = false;
+                        }
                         IsChange = false;
                     }
                     var SolutionText = "";
                     if (Solution == null)
                     {
-                        DisplayAlert("Slover", "No Solution", "OK");
+                        await DisplayAlert("Slover", "No Solution", "OK");
                     }
                     else
                     {
                         int step = 1;
                         foreach (var item in Solution)
                         {
+
                             //SolutionText += $"{item.Move.ToString()},:{item.FromMoveBoxType.ToString()},to type:{item.ToMoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
-                            SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} at floor:{item.StartIndex.Index_Y + 1} ,index:{item.StartIndex.Index_X + 1} {item.Move.ToString()}{Environment.NewLine}";
+                            //SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} at floor:{item.StartIndex.Index_Y + 1} ,index:{item.StartIndex.Index_X + 1} {item.Move.ToString()}{Environment.NewLine}";
+                            SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} in {MappingColumnIndex(item.StartIndex.Index_X)}{item.StartIndex.Index_Y + 1} {item.Move.ToString()} {Environment.NewLine}";
                             step++;
                         }
-                        Navigation.PushModalAsync(new SolutionPage(SolutionText));
+                        await Navigation.PushModalAsync(new SolutionPage(SolutionText));
                         //DisplayAlert("Slover", SolutionText, "OK");
                     }
-
-
                 }
                 else
                 {
@@ -176,6 +185,29 @@ namespace MoveTheBoxSolver.Views
         private void Number_Of_Move_TextChanged(object sender, TextChangedEventArgs e)
         {
             IsChange = true;
+        }
+
+        private string MappingColumnIndex(int Index_X)
+        {
+            switch (Index_X)
+            {
+                case 0:
+                    return "a";
+                case 1:
+                    return "b";
+                case 2:
+                    return "c";
+                case 3:
+                    return "d";
+                case 4:
+                    return "e";
+                case 5:
+                    return "f";
+                case 6:
+                    return "g";
+                default:
+                    return "";
+            }
         }
     }
 }
