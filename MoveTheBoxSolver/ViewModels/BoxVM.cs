@@ -20,17 +20,17 @@ namespace MoveTheBoxSolver.ViewModels
                     case Solver.Models.BoxType.Empty:
                         return Color.Gray;
                     case Solver.Models.BoxType.BrownWood:
-                        return Color.Brown;
+                        return Color.FromHex("#d59667");
                     case Solver.Models.BoxType.RedWood:
                         return Color.Red;
                     case Solver.Models.BoxType.GreenWood:
-                        return Color.Green;
+                        return Color.FromHex("#90ee90");
                     case Solver.Models.BoxType.BrownLeather:
-                        return Color.SaddleBrown;
+                        return Color.FromHex("#6a432d");
                     case Solver.Models.BoxType.BrownPaper:
                         return Color.Orange;
                     case Solver.Models.BoxType.BlueSteel:
-                        return Color.Blue;
+                        return Color.FromHex("#ADD8E6");
                     default:
                         return Color.Black;
                 }

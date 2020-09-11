@@ -4,8 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MoveTheBoxSolver.Views.SolutionPage">
-    <ContentPage.Content>
+             x:Class="MoveTheBoxSolver.Views.SolutionPage"
+             Title = "Your Solution">
+    <ContentPage.Content >
         <StackLayout>
             <Label Text="{Binding SolutionText}" FontSize="Large" />
         </StackLayout>

@@ -4,8 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MoveTheBoxSolver.Views.SelectColorPage">
-    <ContentPage.Content>
+             x:Class="MoveTheBoxSolver.Views.SelectColorPage"
+             Title = "Select Color">
+    <ContentPage.Content >
         <StackLayout
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"

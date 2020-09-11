@@ -26,6 +26,7 @@ namespace MoveTheBoxSolver.Views
             {
                 isLoading = value;
                 OnPropertyChanged("IsLoading");
+                OnPropertyChanged("IsButtonEnabled");
             }
         }
         public bool IsButtonEnabled
@@ -50,9 +51,7 @@ namespace MoveTheBoxSolver.Views
         {
             base.OnAppearing();
 
-            var DeviceWidth = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Width;
-            var BoxSize = DeviceWidth / 7.0;
-
+           
             if (IsAppearingFirstTime)
             {
                 IsAppearingFirstTime = false;
@@ -78,7 +77,7 @@ namespace MoveTheBoxSolver.Views
                         HorizontalOptions = LayoutOptions.Center
                         ,
                         VerticalOptions = LayoutOptions.Center
-                    }, i, 0);
+                    }, i, 9);
                 }
                 for (int i = 0; i < 7; i++)
                 {
@@ -86,9 +85,7 @@ namespace MoveTheBoxSolver.Views
                     {
                         BoxView box = new BoxView()
                         {
-                            BindingContext = new BoxVM() { Type = BoxType.Empty },
-                            WidthRequest = BoxSize,
-                            HeightRequest = BoxSize
+                            BindingContext = new BoxVM() { Type = BoxType.Empty }
                         };
                         box.SetBinding(BoxView.ColorProperty, "Color");
                         TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();

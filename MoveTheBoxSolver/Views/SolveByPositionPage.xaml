@@ -4,9 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MoveTheBoxSolver.Views.SolveByPositionPage">
-    <ContentPage.Content>
-        
+             x:Class="MoveTheBoxSolver.Views.SolveByPositionPage"
+             Title = "Create Puzzle">
+    <ContentPage.Content  >
         <Grid 
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
@@ -20,8 +20,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
-            <Label Text="Create Puzzle" FontSize="Title"
-                HorizontalOptions="CenterAndExpand" Grid.Row="0" />
+            <!--<Label Text="Create Puzzle" FontSize="Title"
+                HorizontalOptions="CenterAndExpand" Grid.Row="0" />-->
             <Grid x:Name="IndexDefineGrid" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand"
                   VerticalOptions="FillAndExpand"
                   Grid.Row="1" >
@@ -53,7 +53,7 @@
                       VerticalOptions="FillAndExpand"
                       Grid.Column="1"
                       Grid.ColumnSpan="7"
-                      Grid.Row="1"
+                      Grid.Row="0"
                       Grid.RowSpan="9">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -82,7 +82,7 @@
                    HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged" 
                    IsEnabled="{Binding IsButtonEnabled}"/>
             <Button IsEnabled="{Binding IsButtonEnabled}" Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
-            <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+            <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
