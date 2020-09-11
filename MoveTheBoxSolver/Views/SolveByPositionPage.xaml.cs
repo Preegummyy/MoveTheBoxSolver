@@ -18,7 +18,22 @@ namespace MoveTheBoxSolver.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SolveByPositionPage : ContentPage
     {
-        public PuzzleTableViewModels PuzzleTableVM { get; set; }
+        public bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
+        public bool IsButtonEnabled
+        {
+            get { return !IsLoading; }
+        }
+
+
         public bool IsAppearingFirstTime = true;
         public SelectColorPage SelectPage;
         public Dictionary<TupleKey, BoxType> BoxsToSolve = new Dictionary<TupleKey, BoxType>();
@@ -27,7 +42,7 @@ namespace MoveTheBoxSolver.Views
         public SolveByPositionPage()
         {
             InitializeComponent();
-            MainTableGrid.BindingContext = PuzzleTableVM;
+            this.BindingContext = this;
             SelectPage = new SelectColorPage(this);
         }
 
@@ -90,6 +105,10 @@ namespace MoveTheBoxSolver.Views
 
         void BoxTapped(object sender, EventArgs e)
         {
+            if (IsLoading)
+            {
+                return;
+            }
             if (sender != null)
             {
                 BoxView boxTapped = sender as BoxView;
@@ -121,6 +140,7 @@ namespace MoveTheBoxSolver.Views
 
         private async void Solve_Clicked(object sender, EventArgs e)
         {
+
             string Text = Number_Of_Move.Text;
             int Limit;
             if (int.TryParse(Text, out Limit))
@@ -133,14 +153,14 @@ namespace MoveTheBoxSolver.Views
                     Solver.Solver solver = new Solver.Solver();
                     if (IsChange)
                     {
-                        Loading.IsRunning = true;
                         try
                         {
+                            IsLoading = true;
                             Solution = await solver.SolveAsync(puzzle, Limit);
                         }
                         finally
                         {
-                            Loading.IsRunning = false;
+                            IsLoading = false;
                         }
                         IsChange = false;
                     }

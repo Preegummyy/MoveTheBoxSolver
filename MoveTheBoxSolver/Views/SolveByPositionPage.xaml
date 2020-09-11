@@ -19,7 +19,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ActivityIndicator x:Name="Loading" IsRunning="False" Grid.Row="0" Grid.RowSpan="4"/>
+            
             <Label Text="Create Puzzle" FontSize="Title"
                 HorizontalOptions="CenterAndExpand" Grid.Row="0" />
             <Grid x:Name="IndexDefineGrid" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand"
@@ -79,8 +79,10 @@
             </Grid>
             <Entry x:Name="Number_Of_Move" Placeholder="Number of move" Keyboard="Numeric"
                    VerticalOptions="FillAndExpand"
-                   HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged"/>
-            <Button Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
+                   HorizontalOptions="FillAndExpand" Grid.Row="2" TextChanged="Number_Of_Move_TextChanged" 
+                   IsEnabled="{Binding IsButtonEnabled}"/>
+            <Button IsEnabled="{Binding IsButtonEnabled}" Clicked="Solve_Clicked" Grid.Row="3" Text="Solve"/>
+            <ActivityIndicator IsRunning="{Binding IsLoading}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
