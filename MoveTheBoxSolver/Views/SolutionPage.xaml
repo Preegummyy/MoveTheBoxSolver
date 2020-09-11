@@ -7,8 +7,9 @@
              x:Class="MoveTheBoxSolver.Views.SolutionPage"
              Title = "Your Solution">
     <ContentPage.Content >
-        <StackLayout>
-            <Label Text="{Binding SolutionText}" FontSize="Large" />
+        <StackLayout x:Name="MainStack">
+            <Label Text="Choose Box Color" FontSize="Title"/>
+            <!--<Label Text="{Binding SolutionText}" FontSize="Large" />-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

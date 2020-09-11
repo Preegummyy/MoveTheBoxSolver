@@ -50,7 +50,7 @@ namespace MoveTheBoxSolver.Views
 
         public bool IsShowClear
         {
-            get { return IsChange; }
+            get { return IsChange && !IsLoading; }
         }
 
         public bool IsAppearingFirstTime = true;
@@ -157,7 +157,7 @@ namespace MoveTheBoxSolver.Views
         private void Clear_All_Clicked(object sender, EventArgs eventArgs)
         {
             Number_Of_Move.Text = "";
-            
+            Number_Of_Move.BackgroundColor = Color.Default;
             Solution = new List<HumanMoveArrow>();
             BoxsToSolve = new Dictionary<TupleKey, BoxType>();
             SelectPage = new SelectColorPage(this);
@@ -226,23 +226,14 @@ namespace MoveTheBoxSolver.Views
                         }
                         IsHasSolution = true;
                     }
-                    var SolutionText = "";
+
                     if (Solution == null)
                     {
                         await DisplayAlert("Slover", "No Solution", "OK");
                     }
                     else
                     {
-                        int step = 1;
-                        foreach (var item in Solution)
-                        {
-
-                            //SolutionText += $"{item.Move.ToString()},:{item.FromMoveBoxType.ToString()},to type:{item.ToMoveBoxType.ToString()},floor:{item.StartIndex.Index_Y + 1},index:{item.StartIndex.Index_X + 1}{Environment.NewLine}";
-                            //SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} at floor:{item.StartIndex.Index_Y + 1} ,index:{item.StartIndex.Index_X + 1} {item.Move.ToString()}{Environment.NewLine}";
-                            SolutionText += $"Step {step} : Move {item.FromMoveBoxType.ToString()} in {MappingColumnIndex(item.StartIndex.Index_X)}{item.StartIndex.Index_Y + 1} {item.Move.ToString()} {Environment.NewLine}";
-                            step++;
-                        }
-                        await Navigation.PushModalAsync(new SolutionPage(SolutionText));
+                        await Navigation.PushModalAsync(new SolutionPage(Solution));
                         //DisplayAlert("Slover", SolutionText, "OK");
                     }
                 }
@@ -266,11 +257,12 @@ namespace MoveTheBoxSolver.Views
 
         private void Number_Of_Move_TextChanged(object sender, TextChangedEventArgs e)
         {
+            Number_Of_Move.BackgroundColor = Color.Default;
             IsChange = true;
             IsHasSolution = false;
         }
 
-        private string MappingColumnIndex(int Index_X)
+        public static string MappingColumnIndex(int Index_X)
         {
             switch (Index_X)
             {
