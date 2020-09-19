@@ -27,6 +27,8 @@ namespace MoveTheBoxSolver.Views
                 isLoading = value;
                 OnPropertyChanged("IsLoading");
                 OnPropertyChanged("IsButtonEnabled");
+                OnPropertyChanged("IsChange");
+                OnPropertyChanged("IsShowClear");
             }
         }
         public bool IsButtonEnabled
@@ -43,6 +45,8 @@ namespace MoveTheBoxSolver.Views
             set
             {
                 isChange = value;
+                OnPropertyChanged("IsLoading");
+                OnPropertyChanged("IsButtonEnabled");
                 OnPropertyChanged("IsChange");
                 OnPropertyChanged("IsShowClear");
             }
