@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveTheBoxSolver.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveTheBoxSolver.iOS", "MoveTheBoxSolver.iOS\MoveTheBoxSolver.iOS.csproj", "{731A0065-E747-4431-B3A6-A907B998BA0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveTheBoxSolver", "MoveTheBoxSolver\MoveTheBoxSolver.csproj", "{0369A58B-34AA-4D99-A518-CC48C1FAD4E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveTheBoxSolver", "MoveTheBoxSolver\MoveTheBoxSolver.csproj", "{0369A58B-34AA-4D99-A518-CC48C1FAD4E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveTheBoxSolver.Solver", "MoveTheBoxSolver.Solver\MoveTheBoxSolver.Solver.csproj", "{312FE478-553C-48E4-AFAA-B709890C233F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveTheBoxSolver.Solver", "MoveTheBoxSolver.Solver\MoveTheBoxSolver.Solver.csproj", "{312FE478-553C-48E4-AFAA-B709890C233F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveTheBoxSolver.Prediction", "MoveTheBoxSolver.Prediction\MoveTheBoxSolver.Prediction.csproj", "{7F297788-431F-4501-BBCE-3121927FF27B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,18 @@ Global
 		{312FE478-553C-48E4-AFAA-B709890C233F}.Release|iPhone.Build.0 = Release|Any CPU
 		{312FE478-553C-48E4-AFAA-B709890C233F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{312FE478-553C-48E4-AFAA-B709890C233F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|iPhone.Build.0 = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7F297788-431F-4501-BBCE-3121927FF27B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

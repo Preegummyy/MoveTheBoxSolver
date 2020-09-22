@@ -7,9 +7,9 @@
              x:Class="MoveTheBoxSolver.Views.SolveByImagePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="btnSelectPic" IsEnabled="{Binding IsSelectBtnEnable}" Text="Select Puzzle Image" Clicked="btnSelectPic_Clicked" />
+            <Button x:Name="btnSolve" IsEnabled="{Binding IsUploadBtnEnable}" Text="Solve" Clicked="btnSolve_Clicked" />
+            <ActivityIndicator IsRunning="{Binding IsLoading}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
