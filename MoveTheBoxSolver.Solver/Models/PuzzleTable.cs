@@ -110,6 +110,17 @@ namespace MoveTheBoxSolver.Solver.Models
         #region Private Method
         private void moveUp(int index_x, int index_y)
         {
+            if (Boxes[index_x, index_y + 1].Type == BoxType.Empty)
+            {
+                //not move up for top empty
+                return;
+            }
+
+            if (Boxes[index_x, index_y].Type == Boxes[index_x, index_y + 1].Type)
+            {
+                //not move up for same type
+                return;
+            }
             var Temp = Boxes[index_x, index_y].Clone();
             Boxes[index_x, index_y] = Boxes[index_x, index_y + 1].Clone();
             Boxes[index_x, index_y + 1] = Temp.Clone();
@@ -119,6 +130,11 @@ namespace MoveTheBoxSolver.Solver.Models
 
         private void moveRight(int index_x, int index_y)
         {
+            if (Boxes[index_x, index_y].Type == Boxes[index_x + 1, index_y].Type)
+            {
+                //not move rigth for same type
+                return;
+            }
             var Temp = Boxes[index_x, index_y].Clone();
             Boxes[index_x, index_y] = Boxes[index_x + 1, index_y].Clone();
             Boxes[index_x + 1, index_y] = Temp.Clone();
