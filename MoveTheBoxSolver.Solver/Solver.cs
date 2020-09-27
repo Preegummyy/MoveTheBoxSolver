@@ -129,7 +129,7 @@ namespace MoveTheBoxSolver.Solver
             return Movelist;
         }
 
-        public MoveArrow[] solve(PuzzleTable puzzle, int moveLimit)
+        private MoveArrow[] solve(PuzzleTable puzzle, int moveLimit)
         {
             puzzle.Fall();
 
@@ -225,7 +225,6 @@ namespace MoveTheBoxSolver.Solver
             return null;
         }
         #endregion
-
 
     }
 }

@@ -104,7 +104,6 @@ namespace MoveTheBoxSolver.Solver.Models
         }
 
         public void Fall() { this.fall(); this.check(); }
-
         #endregion
 
         #region Private Method
