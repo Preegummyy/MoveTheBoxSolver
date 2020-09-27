@@ -37,7 +37,7 @@ namespace MoveTheBoxSolver.Views
         }
 
         public bool IsHasSolution { get; set; }
-        
+
         private bool isChange = false;
         public bool IsChange
         {
@@ -73,7 +73,7 @@ namespace MoveTheBoxSolver.Views
         {
             base.OnAppearing();
 
-           
+
             if (IsAppearingFirstTime)
             {
                 IsAppearingFirstTime = false;
@@ -209,6 +209,15 @@ namespace MoveTheBoxSolver.Views
                     {
                         await DisplayAlert("Slover", "No Box in Puzzle", "OK");
                         return;
+                    }
+
+                    foreach (var item in BoxsToSolve.Where(x => x.Value != BoxType.Empty).GroupBy(x => x.Value))
+                    {
+                        if (item.Count() < 3)
+                        {
+                            await DisplayAlert("Slover", "The number of each type of box must grater than 3", "OK");
+                            return;
+                        }
                     }
 
                     Number_Of_Move.BackgroundColor = Color.Default;
